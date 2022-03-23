@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-challenge",
+  "version": "1.0.0",
+  "description": "assignment NodeJS challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kadphol/nodejs-challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kadphol/nodejs-challenge/issues"
+  },
+  "homepage": "https://github.com/Kadphol/nodejs-challenge#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
