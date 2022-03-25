@@ -1,4 +1,4 @@
-exports.fomatter = (payload) => {
+exports.formatter = (payload) => {
     let array = [];
     for(let key in payload) {
         for(let obj of payload[key]) {
@@ -10,5 +10,5 @@ exports.fomatter = (payload) => {
             array.find(p => p.id === e.parent_id).children.push(e);
         }
     });
-    return array.filter(el => el.parent_id == null);
+    return array.filter(el => el.level == 0);
 }
