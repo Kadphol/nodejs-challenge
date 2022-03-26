@@ -1,16 +1,20 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
-const Joi = require('joi');
 const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
-
-const { formatter } = require('./formatter');
+const Path = require('path');
+const routes = require('./routes');
 
 const server = new Hapi.Server({
     host: 'localhost',
-    port: 3000
+    port: 3000,
+    routes: {
+        files: {
+            relativeTo: Path.join(__dirname, 'public')
+        }
+    }
 });
 
 const swaggerOptions = {
@@ -20,66 +24,57 @@ const swaggerOptions = {
     }
 };
 
-server.route({
-    method: 'GET',
-    path: '/',
-    options: {
-        description: 'home page',
-        tags: ['api'],
-    },
-    handler: (request, h) => {
-        return 'Hello World!'
-    }
-});
-
-server.route({
-    method: 'POST',
-    path: '/organize',
-    options: {
-        description: 'Organize JSON payload to format',
-        notes: 'Get payload with JSON data by moving children into parent objects',
-        tags: ['api'],
-        validate: {
-            payload: Joi.object({
-                data: Joi.object().pattern(
-                    Joi.string(),
-                    Joi.array().items(Joi.object({
-                        id: Joi.number(),
-                        title: Joi.string(),
-                        level: Joi.number(),
-                        children: Joi.array().items(Joi.object().allow(null)).allow(null),
-                        parent_id: Joi.number().allow(null)
-                    })) 
-                )
-            })
-        }
-    },
-    handler: function(request, h) {
-        let payload = request.payload;
-        return formatter(payload.data);
-    }
-});
+server.route(routes);
 
 exports.init = async () => {
-
     await server.initialize();
     return server;
 };
 
 exports.start = async () => {
-    await server.register([
-        Inert,
-        Vision,
+    await server.register([ Inert, Vision,
         {
             plugin: HapiSwagger,
             options: swaggerOptions
         }
     ]);
+    server.views({
+        engines: {
+            html: require('handlebars')
+        },
+        relativeTo: __dirname,
+        path: './public',
+    });
+
+    server.route({
+        method: "GET",
+        path: "/{path*}",
+        handler: {
+            directory: {
+                path: ".",
+                redirectToSlash: true,
+                index: true
+            },
+        },
+    });
+
+    server.route(
+        {
+            method: "GET",
+            path: "/",
+            handler: function(request, h) {
+                try{
+                    return h.view('./index', { title: "test"});
+                } catch(e) {
+                    console.error(e);
+                }
+            }
+        }
+    );
+
     await server.start();
-    console.log('Server running on %s', server.info.uri);
 };
 
-process.on('unhandledRejection', (err) => {
-    console.error(err);
-    process.exit(1);
+process.on('unhandledRejection', (err, origin) => {
+    console.error('Caught exception:', err, 'Exception origin:', origin);
 });
