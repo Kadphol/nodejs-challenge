@@ -1,15 +1,29 @@
 'use strict';
 
+const { expect } = require("@hapi/code");
+
 describe('Server route test', () => {
     describe('GET /', () => {
         let server;
 
-        beforeEach(async () => {
-            server = await init();
+        before(async () => {
+            server = await start();
         });
 
-        afterEach(async () => {
+        after(async () => {
             await server.stop();
+        });
+
+        it("Hapi-Swagger Plugin successfully loads", async () => {
+            expect(server.registrations['hapi-swagger']).not.to.be.undefined();
+        });
+
+        it("Inert Pulgin successfully loads", async () => {
+            expect(server.registrations['@hapi/inert']).not.to.be.undefined();
+        });
+
+        it("Vision Pulgin successfully loads", async () => {
+            expect(server.registrations['@hapi/vision']).not.to.be.undefined();
         });
 
         it('200 route sucess', async () => {
@@ -26,6 +40,14 @@ describe('Server route test', () => {
                 url: '/a123'
             });
             expect(res.statusCode).to.equal(404);
-        })
+        });
+
+        it('static file route', async () => {
+            const res = await server.inject({
+                method: 'GET',
+                url: '/main.js'
+            });
+            expect(res.statusCode).to.equal(200);
+        });
     });
 });

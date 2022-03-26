@@ -61,11 +61,11 @@ describe('/api route', () => {
         });
     });
 
-    describe('GET /github/{page}', () => {
+    describe('GET /github?page=', () => {
         it('200 get result page', async () => {
             let options = {
                 method: 'GET',
-                url: '/api/github/1'
+                url: '/api/github?page=1'
             };
 
             const res = await server.inject(options);
@@ -79,23 +79,39 @@ describe('/api route', () => {
         it('400 Bad request', async () => {
             let options = {
                 method: 'GET',
-                url: '/api/github/a'
+                url: '/api/github?page=0'
             };
 
             const res = await server.inject(options);
             expect(res.statusCode).to.equal(400);
             expect(res.result.error).to.equal("Bad Request");
-            expect(res.result.message).to.equal("Invalid request params input");
+            expect(res.result.message).to.equal("Invalid request query input");
         })
 
         it('404 not found', async () => {
             let options = {
                 method: 'POST',
-                url: '/api/github/1'
+                url: '/api/github?page=1'
             };
 
             const res = await server.inject(options);
             expect(res.statusCode).to.equal(404);
+        });
+    });
+
+    describe('GET /github/all', () => {
+        it('200 get result page', async () => {
+            let options = {
+                method: 'GET',
+                url: '/api/github/all'
+            };
+
+            const res = await server.inject(options);
+            expect(res.statusCode).to.equal(200);
+            expect(res.payload).to.exist();
+            const response = JSON.parse(res.payload);
+            expect(response.incomplete_results).to.equal(false);
+            expect(response.items).to.have.length(100);
         });
     });
 });
