@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <title>Node.js - Challenge</title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./lib/pagination.css">
 </head>
 <body>
     <h1>Nodejs Repositories</h1>
-    <div class="pagination">
-        <div class="tableList" id="listingTable"></div>
-        <div class="pagination-block">
-            <span class="pageButton outline-none" id="button_prev">Prev</span>
-            <span id="page_number" class="outline-none"></span>
-            <span class="pageButton outline-none" id="button_next">Next</span>
-        </div>
+    <div id="wrapper">
+        <section>
+            <div class="data-container"></div>
+            <div id="pagination-demo2"></div>
+        </section>
     </div>
+    <script src="./lib/jquery-3.6.0.min.js"></script>
+    <script src="./lib/pagination.min.js"></script>
     <script type="module" src="./main.js"></script>
 </body>
 </html>
