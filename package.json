@@ -23,7 +23,6 @@
     "@hapi/inert": "^6.0.5",
     "@hapi/vision": "^6.1.0",
     "axios": "^0.26.1",
-    "ejs": "^3.1.6",
     "handlebars": "^4.7.7",
     "hapi-swagger": "^14.2.5",
     "joi": "^17.6.0"
