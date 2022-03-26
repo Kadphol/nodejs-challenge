@@ -79,19 +79,33 @@ module.exports = [
     },
     {
         method: ['GET'],
-        path: '/api/github/{page}',
+        path: '/api/github',
         options: {
             description: 'Search github repositories with github search api',
             notes: 'pagination to Github Search API to find all repositories that match query nodejs',
             tags: ['api'],
             validate: {
-                params: Joi.object({
+                query: Joi.object({
                     page: Joi.number().min(1)
                 })
             }
         },
         handler: async function(request, h) {
-            let param = `q=nodejs&per_page=10&page=${request.params.page}`;
+            let param = `q=nodejs&per_page=10&page=${request.query.page}`;
+            let result = await axios.get(`https://api.github.com/search/repositories?${param}`);
+            return await result.data;
+        }
+    },
+    {
+        method: ['GET'],
+        path: '/api/github/all',
+        options: {
+            description: 'Search github repositories with github search api get all',
+            notes: 'pagination to Github Search API to find all repositories that match query nodejs',
+            tags: ['api']
+        },
+        handler: async function(request, h) {
+            let param = `q=nodejs&per_page=100`;
             let result = await axios.get(`https://api.github.com/search/repositories?${param}`);
             return await result.data;
         }
