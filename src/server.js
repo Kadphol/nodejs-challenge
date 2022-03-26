@@ -31,7 +31,7 @@ exports.init = async () => {
     return server;
 };
 
-exports.start = async () => {
+exports.start = async (start) => {
     await server.register([ Inert, Vision,
         {
             plugin: HapiSwagger,
@@ -63,16 +63,15 @@ exports.start = async () => {
             method: "GET",
             path: "/",
             handler: function(request, h) {
-                try{
-                    return h.view('./index', { title: "test"});
-                } catch(e) {
-                    console.error(e);
-                }
+                return h.view('./index');
             }
         }
     );
 
-    await server.start();
+    if(start) {
+        await server.start();
+    }
+    return server
 };
 
 process.on('unhandledRejection', (err, origin) => {
