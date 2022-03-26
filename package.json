@@ -4,8 +4,8 @@
   "description": "assignment NodeJS challenge",
   "main": "index.js",
   "scripts": {
-    "test": "lab -v ./test/*",
-    "test:coverage": "lab -v ./test/* -c -l"
+    "test": "lab -v ./test/* -l",
+    "test:coverage": "lab -v ./test/* -c -l -t 90"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,13 @@
   },
   "homepage": "https://github.com/Kadphol/nodejs-challenge#readme",
   "dependencies": {
+    "@hapi/boom": "^9.1.4",
     "@hapi/hapi": "^20.2.1",
     "@hapi/inert": "^6.0.5",
     "@hapi/vision": "^6.1.0",
+    "axios": "^0.26.1",
+    "ejs": "^3.1.6",
+    "handlebars": "^4.7.7",
     "hapi-swagger": "^14.2.5",
     "joi": "^17.6.0"
   },
