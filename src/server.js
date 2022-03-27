@@ -1,26 +1,26 @@
-'use strict';
+"use strict";
 
-const Hapi = require('@hapi/hapi');
-const Inert = require('@hapi/inert');
-const Vision = require('@hapi/vision');
-const HapiSwagger = require('hapi-swagger');
-const Path = require('path');
-const Package = require('../package.json');
-const routes = require('./routes/api');
+const Hapi = require("@hapi/hapi");
+const Inert = require("@hapi/inert");
+const Vision = require("@hapi/vision");
+const HapiSwagger = require("hapi-swagger");
+const Path = require("path");
+const Package = require("../package.json");
+const routes = require("./routes/api");
 
 const server = new Hapi.Server({
-    host: 'localhost',
+    host: "localhost",
     port: 3000,
     routes: {
         files: {
-            relativeTo: Path.join(__dirname, 'public')
+            relativeTo: Path.join(__dirname, "public")
         }
     }
 });
 
 const swaggerOptions = {
     info: {
-        title: 'Nodejs Challenge API Documentation',
+        title: "Nodejs Challenge API Documentation",
         version: Package.version
     }
 };
@@ -41,10 +41,10 @@ exports.start = async (start) => {
     ]);
     server.views({
         engines: {
-            html: require('handlebars')
+            html: require("handlebars")
         },
         relativeTo: __dirname,
-        path: './public',
+        path: "./public",
     });
 
     server.route({
@@ -64,7 +64,7 @@ exports.start = async (start) => {
             method: "GET",
             path: "/",
             handler: function(request, h) {
-                return h.view('./index');
+                return h.view("./index");
             }
         }
     );
@@ -74,17 +74,18 @@ exports.start = async (start) => {
             method: "GET",
             path: "/list",
             handler: function(request, h) {
-                return h.view('./list');
+                return h.view("./list");
             }
         }
     );
 
     if(start) {
         await server.start();
+        console.log(`Server running on ${server.info.uri}`);
     }
     return server
 };
 
-process.on('unhandledRejection', (err, origin) => {
-    console.error('Caught exception:', err, 'Exception origin:', origin);
+process.on("unhandledRejection", (err, origin) => {
+    console.error("Caught exception:", err, "Exception origin:", origin);
 });

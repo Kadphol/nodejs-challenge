@@ -40,15 +40,15 @@ var tableColumn = [
 $(document).ready(
 
     function () {
-        $('#repo-table').DataTable({
-                'processing': true,
-                'serverSide': true,
-                'searching': false,
-                'paging': true,
-                'ajax': '/api/github/table',
-                'columns': tableColumn,
-                'pageLength': 10,
-                'lengthChange': false
+        $("#repo-table").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "searching": false,
+                "paging": true,
+                "ajax": "/api/github/table",
+                "columns": tableColumn,
+                "pageLength": 10,
+                "lengthChange": false
         });
     }
 );

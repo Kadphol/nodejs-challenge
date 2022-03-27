@@ -1,20 +1,20 @@
 $(function() {
     (function(name) {
-        var container = $('#pagination-' + name);
+        var container = $("#pagination-" + name);
         container.pagination({
             dataSource: function(done) {
                 $.ajax({
-                    type: 'GET',
+                    type: "GET",
                     url: `/api/github/all`,
                     beforeSend: function() {
-                        container.prev().html('Loading data from github ...');
+                        container.prev().html("Loading data from github ...");
                     },
                     success: function(response) {
                         done(response.items);
                     }
                 });
             },
-            locator: 'items',
+            locator: "items",
             pageSize: 10,
             pageRange: 10,
             pageNumber: 1,
@@ -25,16 +25,16 @@ $(function() {
             showFirstOnEllipsisShow: true,
             showLastOnEllipsisShow: true,
             callback: function(response, pagination) {
-                var dataHtml = '<ul>';
+                var dataHtml = "<ul>";
 
                 $.each(response, function (index, item) {
                     dataHtml += '<li><a href="' + item.html_url + '">' + item.full_name + '</a></li>';
                 });
 
-                dataHtml += '</ul>';
+                dataHtml += "</ul>";
 
                 container.prev().html(dataHtml);
             }
         });
-    })('demo2');
+    })("demo2");
 })
