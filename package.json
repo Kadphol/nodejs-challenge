@@ -4,8 +4,10 @@
   "description": "assignment NodeJS challenge",
   "main": "index.js",
   "scripts": {
-    "test": "lab -v ./test/* -l",
-    "test:coverage": "lab -v ./test/* -c -l -t 90"
+    "start": "lab -v ./test/* --threshold 90 -c --leaks && node index.js",
+    "test": "lab -v ./test/* --leaks --threshold 90",
+    "test:coverage": "lab -v ./test/* -c --leaks",
+    "test:coverage:html": "lab -v ./test/* -c --leaks -r html -o test.html"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
   "devDependencies": {
     "@hapi/code": "^8.0.7",
     "@hapi/lab": "^24.5.1",
+    "nock": "^13.2.4",
     "nodemon": "^2.0.15"
   }
 }
