@@ -44,11 +44,11 @@ npm run test:coverage:html
 
 ## Usage
 
-After running server, you can see application run showing pagination by
+After running server, you can see application on
 
-dataTable 10 per page of nodejs repository search [http://localhost:3000](http://localhost:3000) 
+* [http://localhost:3000](http://localhost:3000) dataTable 10 per page of nodejs repository search 
 
-or pagination.js list of 10 by 10 [http://localhost:3000/list](http://localhost:3000/list)
+* [http://localhost:3000/list](http://localhost:3000/list) pagination.js list of 10 by 10 
 
 API documentation can access through [http://localhost:3000/documentation](http://localhost:3000/documentation)
 
