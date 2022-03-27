@@ -16,7 +16,13 @@ module.exports = [
                     id: Joi.number().example(10),
                     title: Joi.string().example("TEST"),
                     level: Joi.number().example(0),
-                    children: Joi.array().items(Joi.object().allow(null)).allow(null).example([{
+                    children: Joi.array().items(Joi.object({
+                        id: Joi.number().example(10),
+                        title: Joi.string().example("TEST"),
+                        level: Joi.number().example(0),
+                        children: Joi.array().items(Joi.object({}).allow(null)).allow(null),
+                        parent_id: Joi.number().allow(null).example(null)
+                    }).label("children items").allow(null)).allow(null).example([{
                         id: 11,
                         title: "TESTCHILD",
                         level: 1,
@@ -24,7 +30,7 @@ module.exports = [
                         parent_id: 10
                     }]),
                     parent_id: Joi.number().allow(null).example(null)
-                }))
+                })).label("JSON organized result")
             },
             validate: {
                 payload: Joi.object({
@@ -36,7 +42,7 @@ module.exports = [
                             level: Joi.number().required(),
                             children: Joi.array().items(Joi.object().allow(null)).allow(null).required(),
                             parent_id: Joi.number().allow(null).required()
-                        }))
+                        }).label("items"))
                     ).example({
                         "0": [
                             {
@@ -64,7 +70,7 @@ module.exports = [
                             }
                         ]
                     })
-                })
+                }).label("JSON payload")
             }
         },
         handler: function(request, h) {
@@ -86,7 +92,7 @@ module.exports = [
             tags: ['api'],
             validate: {
                 query: Joi.object({
-                    page: Joi.number().min(1)
+                    page: Joi.number().required().min(1)
                 })
             }
         },
@@ -102,7 +108,7 @@ module.exports = [
         options: {
             description: 'Search github repositories with github search api get all',
             notes: 'pagination to Github Search API to find all repositories that match query nodejs',
-            tags: ['api']
+            tags: ['api']       
         },
         handler: async function(request, h) {
             let param = `q=nodejs&per_page=100`;
