@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Node.js - Challenge</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./lib/pagination.css">
+    <link rel="stylesheet" href="./lib/jquery.dataTables.min.css">
 </head>
 <body>
     <h1>Nodejs Repositories</h1>
-    <div id="wrapper">
-        <section>
-            <div class="data-container"></div>
-            <div id="pagination-demo2"></div>
-        </section>
-    </div>
+    <table id="repo-table" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Repository name</th>
+                <th>Repository Url</th>
+                <th>Star Count</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+    </table>
     <script src="./lib/jquery-3.6.0.min.js"></script>
-    <script src="./lib/pagination.min.js"></script>
-    <script type="module" src="./main.js"></script>
+    <script src="./lib/jquery.dataTables.min.js"></script>
+    <script type="module" src="./table.js"></script>
 </body>
 </html>
