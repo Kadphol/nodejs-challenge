@@ -6,7 +6,7 @@ const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
 const Path = require('path');
 const Package = require('../package.json');
-const routes = require('./routes');
+const routes = require('./routes/api');
 
 const server = new Hapi.Server({
     host: 'localhost',
@@ -65,6 +65,16 @@ exports.start = async (start) => {
             path: "/",
             handler: function(request, h) {
                 return h.view('./index');
+            }
+        }
+    );
+
+    server.route(
+        {
+            method: "GET",
+            path: "/list",
+            handler: function(request, h) {
+                return h.view('./list');
             }
         }
     );

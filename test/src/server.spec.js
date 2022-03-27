@@ -47,7 +47,7 @@ describe('Server route test', () => {
         it('static file route', async () => {
             const res = await server.inject({
                 method: 'GET',
-                url: '/main.js'
+                url: '/table.js'
             });
             expect(res.statusCode).to.equal(200);
         });
