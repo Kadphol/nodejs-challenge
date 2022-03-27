@@ -40,6 +40,8 @@ describe('Server route test', () => {
                 url: '/a123'
             });
             expect(res.statusCode).to.equal(404);
+            expect(res.result.error).to.equal("Not Found");
+            expect(res.result.message).to.equal("Not Found");
         });
 
         it('static file route', async () => {
