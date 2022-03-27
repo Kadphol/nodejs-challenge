@@ -5,6 +5,7 @@ const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
 const Path = require('path');
+const Package = require('../package.json');
 const routes = require('./routes');
 
 const server = new Hapi.Server({
@@ -20,7 +21,7 @@ const server = new Hapi.Server({
 const swaggerOptions = {
     info: {
         title: 'Nodejs Challenge API Documentation',
-        version: '0.0.1'
+        version: Package.version
     }
 };
 
