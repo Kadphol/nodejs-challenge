@@ -44,7 +44,7 @@ npm run test:coverage:html
 
 ## Usage
 
-After running server, you can see application run on [http://localhost:3000](http://localhost:3000)
+After running server, you can see application run showing pagination  dataTable 10 per page of nodejs repository search [http://localhost:3000](http://localhost:3000) or pagination.js list of 10 by 10 [http://localhost:3000/list](http://localhost:3000/list)
 
 API documentation can access through [http://localhost:3000/documentation](http://localhost:3000/documentation)
 
@@ -68,3 +68,5 @@ API documentation can access through [http://localhost:3000/documentation](http:
 * [jQuery](https://jquery.com) - javascript library for HTML document traversal and manipulation, event handling, animation, and Ajax.
 
 * [Pagination.js](https://pagination.js.org) - A jQuery plugin to provide simple yet fully customisable pagination.
+
+* [DataTable](https://datatables.net) - A jQuery plugin for HTML Tables
