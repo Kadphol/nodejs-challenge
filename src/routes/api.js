@@ -119,7 +119,7 @@ module.exports = [
         path: "/api/github",
         options: {
             description: "Search github repositories with github search api",
-            notes: "pagination to Github Search API to find all repositories that match query nodejs",
+            notes: "pagination to Github Search API to find all repositories that match query nodejs (not exceed 1000 page search results)",
             tags: ["api"],
             validate: {
                 query: Joi.object({
