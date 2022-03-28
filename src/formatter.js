@@ -1,3 +1,8 @@
+/** 
+ * Re-organized JSON documnet by moving children into parents
+ * @param    {JSON}  payload     JSON document
+ * @return   {Array}             Array of JSON after re-organized
+ */
 exports.formatter = (payload) => {
     let array = [];
     for(let key in payload) {

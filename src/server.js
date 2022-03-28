@@ -18,6 +18,7 @@ const server = new Hapi.Server({
     }
 });
 
+// swagger options 
 const swaggerOptions = {
     info: {
         title: "Nodejs Challenge API Documentation",
@@ -25,20 +26,30 @@ const swaggerOptions = {
     }
 };
 
+// register routes api
 server.route(routes);
 
+// initial server for testing
 exports.init = async () => {
     await server.initialize();
     return server;
 };
 
+/**
+ * Register plugin and views engine template to start server
+ * @param   {boolean}       start   boolean to start server
+ * @returns {Hapi.server}           instance with plupins for testing
+ */
 exports.start = async (start) => {
+    // register plugins
     await server.register([ Inert, Vision,
         {
             plugin: HapiSwagger,
             options: swaggerOptions
         }
     ]);
+
+    // config view engine
     server.views({
         engines: {
             html: require("handlebars")
@@ -47,6 +58,7 @@ exports.start = async (start) => {
         path: "./public",
     });
 
+    // route path for static files
     server.route({
         method: "GET",
         path: "/{path*}",
@@ -59,26 +71,25 @@ exports.start = async (start) => {
         },
     });
 
-    server.route(
-        {
-            method: "GET",
-            path: "/",
-            handler: function(request, h) {
-                return h.view("./index");
-            }
+    // route path for home page
+    server.route({
+        method: "GET",
+        path: "/",
+        handler: function(request, h) {
+            return h.view("./index");
         }
-    );
+    });
 
-    server.route(
-        {
-            method: "GET",
-            path: "/list",
-            handler: function(request, h) {
-                return h.view("./list");
-            }
+    // route path for list page
+    server.route({
+        method: "GET",
+        path: "/list",
+        handler: function(request, h) {
+            return h.view("./list");
         }
-    );
+    });
 
+    // Check if start server
     if(start) {
         await server.start();
         console.log(`Server running on ${server.info.uri}`);
@@ -86,6 +97,7 @@ exports.start = async (start) => {
     return server
 };
 
+// Caught unhandle rejection
 process.on("unhandledRejection", (err, origin) => {
     console.error("Caught exception:", err, "Exception origin:", origin);
 });

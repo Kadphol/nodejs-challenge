@@ -69,7 +69,6 @@ module.exports = [
             let payload = request.payload;
             let data = formatter(payload.data);
             if(data.length) {
-                console.log(data);
                 return data;
             } else {
                 throw Boom.badRequest();
@@ -90,6 +89,7 @@ module.exports = [
             let pageData = await axios.get(`http://localhost:3000/api/github?page=${page}`);
             let items_list = [];
             try{
+                // format data from github api to datatable data
                 pageData.data.items.forEach((e, index)=> {
                     let item = {};
                     item.id = index+(10 * (page-1));
@@ -104,6 +104,7 @@ module.exports = [
                 throw new Boom.internal("Internal Server Error");
             }
             
+            // data format for datatable
             let data = {
                 draw: draw,
                 recordsTotal: pageData.data.total_count,
