@@ -46,7 +46,7 @@ npm run test:coverage:html
 
 After running server, you can see application on
 
-* [http://localhost:3000](http://localhost:3000) dataTable 10 per page of nodejs repository search 
+* [http://localhost:3000](http://localhost:3000) DataTable show 10 per page of nodejs repository search 
 
 * [http://localhost:3000/list](http://localhost:3000/list) pagination.js list of 10 by 10 
 
